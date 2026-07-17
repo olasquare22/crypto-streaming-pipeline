@@ -20,7 +20,7 @@ CoinGecko (REST API, polled every 10s)
 
 ## What it does
 
-Tracks live USD prices for 5 coins — **BTC, ETH, SOL, BNB, XRP** — and keeps a continuously-updated "latest price" snapshot per coin in a Cassandra table, visualized on a live Grafana dashboard.
+Tracks live USD prices for 5 coins  **BTC, ETH, SOL, BNB, XRP**  and keeps a continuously-updated "latest price" snapshot per coin in a Cassandra table, visualized on a live Grafana dashboard.
 
 ## Stack
 
@@ -34,13 +34,13 @@ Tracks live USD prices for 5 coins — **BTC, ETH, SOL, BNB, XRP** — and keeps
 
 ## Why no Spark
 
-This started as a Kafka → Spark → Cassandra pipeline, per the original brief. During development it became clear that running a full Spark cluster (master + worker) alongside Kafka and Cassandra needs more memory than a typical dev laptop comfortably provides — each is a separate JVM with its own baseline footprint.
+This started as a Kafka → Spark → Cassandra pipeline, per the original brief. During development it became clear that running a full Spark cluster (master + worker) alongside Kafka and Cassandra needs more memory than a typical dev laptop comfortably provides  each is a separate JVM with its own baseline footprint.
 
-Since the actual transformation logic here is simple (parse JSON, reshape a few fields, upsert), a lightweight Python consumer does the same job as a Spark Structured Streaming job would, without the operational overhead. Spark earns its keep at real data volumes needing distributed processing — for 5 coins polled every 10 seconds, it was always more infrastructure than the workload needed. This is a deliberate architecture decision made after hitting real resource constraints, not a shortcut.
+Since the actual transformation logic here is simple (parse JSON, reshape a few fields, upsert), a lightweight Python consumer does the same job as a Spark Structured Streaming job would, without the operational overhead. Spark earns its keep at real data volumes needing distributed processing  for 5 coins polled every 10 seconds, it was always more infrastructure than the workload needed. This is a deliberate architecture decision made after hitting real resource constraints, not a shortcut.
 
 ## Why CoinGecko instead of a crypto exchange
 
-The original design used Binance's WebSocket for true tick-by-tick trade data. Binance (and later, Bybit, tried as an alternative) were both unreachable during development due to exchange-domain blocking at the network level. CoinGecko, a market-data aggregator rather than an exchange, was used instead — polled every 10 seconds via REST. This fits the project's actual goal well, since only the latest price per coin is ever stored.
+The original design used Binance's WebSocket for true tick-by-tick trade data. Binance (and later, Bybit, tried as an alternative) were both unreachable during development due to exchange-domain blocking at the network level. CoinGecko, a market-data aggregator rather than an exchange, was used instead  polled every 10 seconds via REST. This fits the project's actual goal well, since only the latest price per coin is ever stored.
 
 ## Running it locally
 
