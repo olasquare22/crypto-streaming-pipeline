@@ -1,6 +1,6 @@
 # Crypto Price Streaming Pipeline
 
-A real-time data pipeline that polls live cryptocurrency prices, streams them through Kafka, and stores the latest price per coin in Cassandra visualized in Grafana.
+A real-time data pipeline that polls live cryptocurrency prices, streams them through Kafka, and stores the latest price per coin in Cassandra — visualized in Grafana.
 
 ```
 CoinGecko (REST API, polled every 10s)
@@ -20,7 +20,7 @@ CoinGecko (REST API, polled every 10s)
 
 ## What it does
 
-Tracks live USD prices for 5 coins  **BTC, ETH, SOL, BNB, XRP**  and keeps a continuously-updated "latest price" snapshot per coin in a Cassandra table, visualized on a live Grafana dashboard.
+Tracks live USD prices for 5 coins — **BTC, ETH, SOL, BNB, XRP** — and keeps a continuously-updated "latest price" snapshot per coin in a Cassandra table, visualized on a live Grafana dashboard.
 
 ## Stack
 
