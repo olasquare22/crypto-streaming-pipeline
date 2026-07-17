@@ -1,6 +1,8 @@
 venv/
+venv311/
 __pycache__/
 *.pyc
 .env
 .DS_Store
 *.log
+checkpoints/
