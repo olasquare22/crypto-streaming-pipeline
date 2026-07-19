@@ -59,6 +59,11 @@ producer = KafkaProducer(
     bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
     value_serializer=lambda v: json.dumps(v).encode("utf-8"),
     key_serializer=lambda k: k.encode("utf-8"),
+    # Explicitly specifying the API version skips kafka-python's automatic
+    # version-detection handshake at startup. That handshake occasionally
+    # fails on Windows when localhost resolves to IPv6 (::1) instead of
+    # IPv4 (127.0.0.1), even though the port itself is genuinely reachable.
+    api_version=(3, 6, 0),
 )
 
 
